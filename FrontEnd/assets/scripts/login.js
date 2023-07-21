@@ -1,25 +1,15 @@
-// Je place l'écouteur d'événement pour le clic sur la balise CSS "login"
-const loginLink = document.querySelector('.login')
-loginLink.addEventListener('click', handleLogin)
-
-// ça génère la page de login
-function handleLogin() {
-  generateLoginPage()
-}
-
-// ça remplace la page index par la page login
-function generateLoginPage() {
-  window.location.href = 'login.html'
-  document.documentElement.replaceWith(loginPage)
-  const loginForm = loginPage.getElementById('loginForm')
-
-  // Je place un écouteur d'événement pour le clic sur le bouton "se connecter"
-  loginForm.addEventListener('submit', handleLoginFormSubmit)
-}
+// On stocke la valeur précise du token de connexion
+const token = localStorage.getItem(
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4'
+);
+const loginForm = document.getElementById('loginForm');
 
 // J'empêche le comportement par défaut du bouton "se connecter"
-function handleLoginFormSubmit(event) {
+function loginFormSubmit(event) {
   event.preventDefault()
+
+// Je place un écouteur d'événement pour le clic sur le bouton "se connecter"
+loginForm.addEventListener('submit', loginFormSubmit)
 
   // Je récupère les valeurs des champs d'identification
   const email = document.getElementById('email').value
@@ -30,14 +20,22 @@ function handleLoginFormSubmit(event) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((response) => {
-      if (response.ok) {
-        window.location.href = 'index.html'
-      } else {
-        alert('Identifiants invalides')
+    .then((data) => {
+      // (Si les id et pw sont corrects, ça stocke le token)
+      try {
+        if (data && data.token) {
+          localStorage.setItem('token', data.token)
+          window.location.href = 'index.html'
+        } else {
+          throw new Error("Token manquant dans la réponse de l'API")
+        }
+      } catch (error) {
+        console.error('Erreur lors de la requête API:', error)
+        alert('Une erreur est survenue lors de la connexion')
       }
     })
     .catch((error) => {
