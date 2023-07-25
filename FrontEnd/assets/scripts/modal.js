@@ -5,6 +5,7 @@ const closeModalButton = document.getElementById('closeModalButton')
 const submitButton = document.getElementById('submitButton')
 const photoForm = document.getElementById('photoForm')
 const gallery = document.getElementById('gallery')
+const token = localStorage.getItem('token')
 
 // J'ajoute un écouteur d'événement pour ouvrir la modale
 addPhotoButton.addEventListener('click', openModal)
@@ -44,6 +45,7 @@ function handleSubmit(event) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify(newPhoto),
   })
