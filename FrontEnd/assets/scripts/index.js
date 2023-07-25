@@ -3,17 +3,17 @@ async function getGalleryData() {
     const response = await fetch('http://localhost:5678/api/works', {
       method: 'GET',
       headers: {
-         'Accept': 'application/json',
-         'Content-Type': 'application/json',
-      }
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
     });
-    
+
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des éléments de la galerie');
     }
-    
+
     const data = await response.json();
-    
+
     displayGallery(data);
   } catch (error) {
     console.error('Une erreur est survenue lors de la récupération des éléments de la galerie :', error);
@@ -30,7 +30,7 @@ function displayGallery(data) {
     const image = document.createElement('img');
     const figcaption = document.createElement('figcaption');
 
-    image.src = item.img;
+    image.src = item.imageUrl;
     image.alt = item.title;
     figcaption.textContent = item.title;
 
