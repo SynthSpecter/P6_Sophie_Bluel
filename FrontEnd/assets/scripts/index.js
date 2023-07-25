@@ -1,8 +1,11 @@
 async function getGalleryData() {
   try {
     const response = await fetch('http://localhost:5678/api/works', {
-      'method': 'GET',
-      'Content-Type': 'application/json',
+      method: 'GET',
+      headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+      }
     });
     
     if (!response.ok) {
