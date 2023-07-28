@@ -271,6 +271,70 @@ footer nav ul {
   margin: 2em;
 }
 
+/* BARRE DE NAVIGATION */
+
+.edit-mode-bar {
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+
+.edit-mode-bar i {
+  margin-right: 10px;
+}
+
+.publish-button {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.publish-button:hover {
+  background-color: #555;
+  color: #fff;
+}
+
+/* BOUTONS DE TRI */
+
+.gallery-nav {
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.gallery-nav-item {
+  background-color: #333;
+  color: #fff; 
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  width: 80px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.gallery-nav-item.active {
+  background-color: #fff;
+  color: #333;
+}
+
+.gallery-nav-item:not(.active):hover {
+  background-color: #555;
+}
+
+/* LOGIN */
+
 #login {
   display: flex;
   justify-content: center;
