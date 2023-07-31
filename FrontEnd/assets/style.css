@@ -307,30 +307,32 @@ footer nav ul {
   display: flex;
   justify-content: space-between;
   max-width: 400px;
-  margin: 0 auto;
+  margin: auto auto 2rem auto;
+  gap: 1rem;
 }
 
 .gallery-nav-item {
-  background-color: #333;
-  color: #fff; 
+  background-color: whitesmoke;
+  color: #1d6154; 
   font-family: 'Syne', sans-serif;
-  font-weight: 800;
+  font-weight: 100;
   font-size: 1rem;
-  width: 80px;
-  height: 40px;
-  border: none;
+  width: auto;
+  height: auto;
+  border: 1px solid #1d6154;
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .gallery-nav-item.active {
-  background-color: #fff;
-  color: #333;
+  background-color: #1d6154;
+  color: whitesmoke;
 }
 
 .gallery-nav-item:not(.active):hover {
-  background-color: #555;
+  background-color: #1d6154;
+  color: whitesmoke;
 }
 
 /* LOGIN */

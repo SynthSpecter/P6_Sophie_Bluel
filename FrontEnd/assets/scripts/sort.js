@@ -1,26 +1,86 @@
+document.addEventListener('DOMContentLoaded', () => {
+  fetchCategories();
 
-const sortButtons = document.querySelectorAll('.sort-button')
+  const galleryNav = document.querySelector('.gallery-nav');
+  const sortButtons = galleryNav.querySelectorAll('.gallery-nav-item');
 
-sortButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    const category = button.dataset.category
+  sortButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const categoryFilter = button.dataset.filter;
+      setActiveButton(button);
 
-    fetch(`http://localhost:5678/api/${category}`)
-      .then((response) => response.json())
-      .then((data) => {
-        gallery.innerHTML = ''
+      getGalleryData(categoryFilter === 'Tous' ? null : categoryFilter);
+    });
+  });
+});
 
-        data.forEach((table) => {
-          const tableElement = document.createElement('div')
-          tableElement.textContent = table.name
-          gallery.appendChild(tableElement)
-        })
-      })
-      .catch((error) => {
-        console.error(
-          "Une erreur s'est produite lors de la récupération des tableaux :",
-          error
-        )
-      })
-  })
-})
+async function fetchCategories() {
+  try {
+    const response = await fetch('http://localhost:5678/api/categories');
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des catégories');
+    }
+    const data = await response.json();
+    setActiveButton(document.querySelector('[data-filter="Tous"]'));
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+async function getGalleryData(categoryFilter) {
+  try {
+    const url = categoryFilter
+      ? `http://localhost:5678/api/categories`
+      : 'http://localhost:5678/api/works';
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des éléments de la galerie');
+    }
+
+    const data = await response.json();
+
+    displayGallery(data);
+  } catch (error) {
+    console.error(error.message);
+    const errorSpan = document.createElement('span');
+    errorSpan.classList.add('error-message');
+    errorSpan.textContent = 'Une erreur est survenue lors de la récupération des éléments de la galerie';
+    const galleryContainer = document.querySelector('.gallery');
+    galleryContainer.innerHTML = '';
+    galleryContainer.appendChild(errorSpan);
+  }
+}
+
+function displayGallery(data) {
+  const galleryContainer = document.querySelector('.gallery');
+  galleryContainer.innerHTML = '';
+
+  data.forEach(item => {
+    const figure = document.createElement('figure');
+    const image = document.createElement('img');
+    const figcaption = document.createElement('figcaption');
+
+    image.src = item.imageUrl;
+    image.alt = item.title;
+    figcaption.textContent = item.title;
+
+    figure.appendChild(image);
+    figure.appendChild(figcaption);
+
+    galleryContainer.appendChild(figure);
+  });
+}
+
+function setActiveButton(button) {
+  const sortButtons = document.querySelectorAll('.gallery-nav-item');
+  sortButtons.forEach(btn => btn.classList.remove('active'));
+  button.classList.add('active');
+}

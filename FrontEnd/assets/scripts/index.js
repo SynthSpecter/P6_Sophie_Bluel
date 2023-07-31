@@ -17,7 +17,16 @@ async function getGalleryData() {
 
     displayGallery(data); 
   } catch (error) {
-    console.error('Une erreur est survenue lors de la récupération des éléments de la galerie :', error);
+    const errorMessage = 'Une erreur est survenue lors de la récupération des éléments de la galerie';
+    console.error(errorMessage);
+    const errorSpan = document.createElement('span');
+    errorSpan.textContent = errorMessage;
+    errorSpan.style.display = 'grid';
+    errorSpan.style.gridRow = '3';
+    errorSpan.style.gridColumn = '2';
+    const galleryContainer = document.querySelector('.gallery');
+    galleryContainer.innerHTML = '';
+    galleryContainer.appendChild(errorSpan);
   }
 }
 
