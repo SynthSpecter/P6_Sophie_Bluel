@@ -1,7 +1,6 @@
-async function logout() {
+function logout() {
     try {
-        localStorage.removeItem("token");
-        console.log("Déconnexion réussie.");
+        sessionStorage.removeItem("token");
         return true;
     } catch (error) {
         console.error("Erreur lors de la déconnexion :", error);
@@ -12,7 +11,7 @@ async function logout() {
 document.getElementById("logoutBtn").addEventListener("click", async (event) => {
     event.preventDefault();
 
-    const isLoggedOut = await logout();
+    const isLoggedOut = logout();
 
     if (isLoggedOut) {
         window.location = "index.html";

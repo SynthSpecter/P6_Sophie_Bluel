@@ -375,3 +375,12 @@ footer nav ul {
   width: 150px;
   height: 40px;
 }
+
+
+/* MESSAGE D'ERREUR */
+
+.gallery span {
+  display: grid;
+  grid-row: 3;
+  grid-column: 2;
+}

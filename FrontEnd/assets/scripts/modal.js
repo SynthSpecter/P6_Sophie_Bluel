@@ -5,7 +5,7 @@ const closeModalButton = document.getElementById('closeModalButton')
 const submitButton = document.getElementById('submitButton')
 const photoForm = document.getElementById('photoForm')
 const gallery = document.getElementById('gallery')
-const token = localStorage.getItem('token')
+const token = sessionStorage.getItem('token')
 
 addPhotoButton.addEventListener('click', openModal)
 

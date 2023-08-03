@@ -16,8 +16,7 @@ async function login() {
 
         if (response.ok) {
             const data = await response.json();
-            localStorage.setItem("token", data.token);
-            console.log('Token:', data.token);
+            sessionStorage.setItem("token", data.token);
             return true;
         } else {
             const error = document.getElementById('error');
@@ -37,5 +36,18 @@ loginForm.addEventListener('submit', async (event) => {
     
     if (isAuthenticated) {
         window.location = "./edit.html";
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const token = sessionStorage.getItem("token");
+
+    if (token) {
+        const currentPage = window.location.pathname.split('/').pop();
+        
+        if (currentPage !== 'edit.html') {
+            alert("Vous êtes déjà connecté !");
+            window.location = "./edit.html";
+        }
     }
 });
