@@ -5,7 +5,6 @@ const closeModalButton = document.getElementById('closeModalButton')
 const submitButton = document.getElementById('submitButton')
 const photoForm = document.getElementById('photoForm')
 const gallery = document.getElementById('gallery')
-const token = sessionStorage.getItem('token')
 
 addPhotoButton.addEventListener('click', openModal)
 
@@ -32,7 +31,7 @@ function handleSubmit(event) {
     category: category,
   }
 
-  fetch('http://localhost:5678/api/', {
+  fetch('http://localhost:5678/api/works', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

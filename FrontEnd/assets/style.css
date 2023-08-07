@@ -192,6 +192,13 @@ li a:hover {
 #introduction figure {
   flex: 1;
 }
+
+#introduction figcaption {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 55px;
+  margin-top: 10px;
+}
 #introduction img {
   display: block;
   margin: auto;
@@ -211,6 +218,16 @@ li a:hover {
 #portfolio h2 {
   text-align: center;
   margin-bottom: 1em;
+}
+
+.portfolio--edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.portfolio--edit i,a {
+  margin-bottom: 2em;
 }
 .gallery {
   width: 100%;
@@ -271,6 +288,39 @@ footer nav ul {
   margin: 2em;
 }
 
+/* MODALE */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+.close {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #000;
+}
+
+
 /* BARRE DE NAVIGATION */
 
 .edit-mode-bar {
@@ -280,6 +330,9 @@ footer nav ul {
   align-items: center;
   justify-content: center;
   height: 40px;
+  width: 1440px;
+  margin-left: -100px;
+  gap: 10px;
 }
 
 .edit-mode-bar i {

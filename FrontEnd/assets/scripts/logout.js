@@ -8,7 +8,7 @@ function logout() {
     }
 }
 
-document.getElementById("logoutBtn").addEventListener("click", async (event) => {
+document.getElementById("logoutBtn").addEventListener("click", (event) => {
     event.preventDefault();
 
     const isLoggedOut = logout();

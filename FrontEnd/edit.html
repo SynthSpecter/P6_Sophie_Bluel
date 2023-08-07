@@ -13,7 +13,6 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
    <link rel="stylesheet" href="./assets/style.css">
    <script src="./assets/scripts/edit.js"></script>
-   <script src="./assets/scripts/index.js" defer></script>
    <script src="./assets/scripts/modal.js" defer></script>
    <script src="./assets/scripts/sort.js" defer></script>
    <script src="./assets/scripts/logout.js" defer></script>
@@ -21,7 +20,7 @@
 
 <body>
    <nav class="edit-mode-bar">
-      <i class="fas fa-pencil-alt"></i>
+      <i class="fa-regular fa-pen-to-square"></i>
       <span>Mode édition</span>
       <button class="publish-button">Publier les changements</button>
    </nav>
@@ -40,6 +39,10 @@
       <section id="introduction">
          <figure>
             <img src="./assets/images/sophie-bluel.png" alt="Photo de Sophie Bluel">
+            <figcaption>
+               <i class="fa-regular fa-pen-to-square"></i>
+               <a href="#" id="addPhotoButton">modifier</a>
+            </figcaption>
          </figure>
          <article>
             <h2>Designer d'espace</h2>
@@ -53,7 +56,11 @@
          </article>
       </section>
       <section id="portfolio">
-         <h2 id="projects">Mes Projets</h2>
+         <div class="portfolio--edit">
+            <h2 id="projects">Mes Projets</h2>
+            <i class="fa-regular fa-pen-to-square"></i>
+            <a href="#" id="addPhotoButton">modifier</a>
+         </div>
          <nav class="gallery-nav">
          </nav>
          <div class="gallery">
@@ -81,6 +88,22 @@
          </ul>
       </nav>
    </footer>
+
+   <!-- MODALE -->
+
+   <div id="modal" class="modal">
+      <div class="modal-content">
+         <span id="closeModalButton" class="close">&times;</span>
+         <form id="photoForm">
+            <label for="title">Titre :</label>
+            <input type="text" id="title" name="title" required>
+            <label for="category">Catégorie :</label>
+            <input type="text" id="category" name="category" required>
+            <button id="submitButton" type="submit">Ajouter Photo</button>
+         </form>
+      </div>
+   </div>
+
 </body>
 
 </html>
