@@ -94,12 +94,15 @@
    <div id="modal" class="modal">
       <div class="modal-content">
          <span id="closeModalButton" class="close">&times;</span>
-         <form id="photoForm">
-            <label for="title">Titre :</label>
-            <input type="text" id="title" name="title" required>
-            <label for="category">Catégorie :</label>
-            <input type="text" id="category" name="category" required>
-            <button id="submitButton" type="submit">Ajouter Photo</button>
+         <h2>Galerie photo</h2>
+         <div class="gallery-mini">
+         </div>
+         <hr class="divider">
+         <div class="buttonContainer">
+            <button id="addPhotoFormButton" class="add-photo-button">Ajouter une photo</button>
+            <button id="deleteGalleryButton" class="delete-gallery-button">Supprimer la galerie</button>
+         </div>
+         <form id="photoForm" class="photo-form" style="display: none">
          </form>
       </div>
    </div>

@@ -1,64 +1,125 @@
+const addPhotoButton = document.getElementById('addPhotoButton');
+const closeModalButton = document.getElementById('closeModalButton');
+const galleryMini = document.querySelector('.gallery-mini');
+const photoForm = document.getElementById('photoForm');
 
-const addPhotoButton = document.getElementById('addPhotoButton')
-const modal = document.getElementById('modal')
-const closeModalButton = document.getElementById('closeModalButton')
-const submitButton = document.getElementById('submitButton')
-const photoForm = document.getElementById('photoForm')
-const gallery = document.getElementById('gallery')
-
-addPhotoButton.addEventListener('click', openModal)
-
-closeModalButton.addEventListener('click', closeModal)
-
-submitButton.addEventListener('click', handleSubmit)
+addPhotoButton.addEventListener('click', openModal);
+closeModalButton.addEventListener('click', closeModal);
 
 function openModal() {
-  modal.style.display = 'block'
+  modal.style.display = 'block';
+  closeModalButton.style.display = 'block';
+  galleryMini.style.display = 'flex';
+  photoForm.style.display = 'none';
+  populateGalleryMini();
+  populateCategoryDropdown();
 }
 
 function closeModal() {
-  modal.style.display = 'none'
+        modal.style.display = 'none';
+        galleryMini.style.display = 'none';
+        photoForm.style.display = 'none';
+      }
+
+async function populateGalleryMini() {
+  try {
+    const response = await fetch('http://localhost:5678/api/works');
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des éléments de la galerie');
+    }
+    const data = await response.json();
+    galleryMini.innerHTML = '';
+
+    data.forEach(item => {
+      const figure = document.createElement('figure');
+      figure.classList.add('gallery-item');
+
+      const image = document.createElement('img');
+      const figcaption = document.createElement('figcaption');
+
+      image.src = item.imageUrl;
+      image.alt = item.title;
+      figcaption.textContent = item.title;
+
+      figure.appendChild(image);
+      figure.appendChild(figcaption);
+
+      const buttonsContainer = createButtons(item.id);
+      figure.appendChild(buttonsContainer);
+
+      galleryMini.appendChild(figure);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
 }
 
-function handleSubmit(event) {
-  event.preventDefault()
+function createButtons(imageId) {
+  const buttonsContainer = document.createElement('div');
+  buttonsContainer.classList.add('photo-buttons');
 
-  const title = document.getElementById('title').value
-  const category = document.getElementById('category').value
+  const moveButton = document.createElement('button');
+  moveButton.classList.add('move-button');
+  moveButton.innerHTML = '<i class="fas fa-arrows-alt"></i>';
+  moveButton.addEventListener('click', () => moveImage(imageId, 'up'));
+  buttonsContainer.appendChild(moveButton);
 
-  const newPhoto = {
-    title: title,
-    category: category,
+  const deleteButton = document.createElement('button');
+  deleteButton.classList.add('delete-button');
+  deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+  deleteButton.addEventListener('click', () => deleteImage(imageId));
+  buttonsContainer.appendChild(deleteButton);
+
+  return buttonsContainer;
+}
+
+async function deleteImage(imageId) {
+  try {
+    const response = await fetch(`http://localhost:5678/api/works/${imageId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    
+    if (response.ok) {
+      const figure = document.querySelector(`[data-image-id="${imageId}"]`);
+      if (figure) {
+        figure.remove();
+      }
+    } else {
+      console.error('Erreur lors de la suppression de l\'image');
+    }
+  } catch (error) {
+    console.error(error.message);
   }
+}
 
-  fetch('http://localhost:5678/api/works', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    body: JSON.stringify(newPhoto),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data)
+async function populateCategoryDropdown() {
+  const categoryDropdown = document.getElementById('category');
 
-      const galleryItem = document.createElement('figure')
-      galleryItem.innerHTML = `
-        <img src="${data.imageUrl}" alt="${data.title}">
-        <figcaption>${data.title} - ${data.category}</figcaption>
-      `
+  try {
+    const response = await fetch('http://localhost:5678/api/categories');
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des catégories');
+    }
+    const categories = await response.json();
 
-      gallery.appendChild(galleryItem)
+    categoryDropdown.innerHTML = '';
+    categories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category.name;
+      option.textContent = category.name;
+      categoryDropdown.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+}
 
-      photoForm.reset()
+const deleteGalleryButton = document.getElementById('deleteGalleryButton');
+deleteGalleryButton.addEventListener('click', deleteGallery);
 
-      closeModal()
-    })
-    .catch((error) => {
-      console.error(
-        "Une erreur s'est produite lors de l'ajout de la photo :",
-        error
-      )
-    })
+function deleteGallery() {
+
 }

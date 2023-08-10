@@ -1,5 +1,13 @@
 const loginForm = document.getElementById('loginForm');
 
+const token = sessionStorage.getItem("token");
+const currentPage = window.location.pathname.split('/').pop();
+
+if (token && currentPage !== 'edit.html') {
+    alert("Vous êtes déjà connecté !");
+    window.location = "./edit.html";
+}
+
 async function login() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -36,18 +44,5 @@ loginForm.addEventListener('submit', async (event) => {
     
     if (isAuthenticated) {
         window.location = "./edit.html";
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const token = sessionStorage.getItem("token");
-
-    if (token) {
-        const currentPage = window.location.pathname.split('/').pop();
-        
-        if (currentPage !== 'edit.html') {
-            alert("Vous êtes déjà connecté !");
-            window.location = "./edit.html";
-        }
     }
 });
