@@ -13,8 +13,8 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
    <link rel="stylesheet" href="./assets/style.css">
    <script src="./assets/scripts/edit.js"></script>
-   <script src="./assets/scripts/modal.js" defer></script>
    <script src="./assets/scripts/sort.js" defer></script>
+   <script src="./assets/scripts/modal.js" defer></script>
    <script src="./assets/scripts/logout.js" defer></script>
 </head>
 
@@ -41,7 +41,7 @@
             <img src="./assets/images/sophie-bluel.png" alt="Photo de Sophie Bluel">
             <figcaption>
                <i class="fa-regular fa-pen-to-square"></i>
-               <a href="#" id="addPhotoButton">modifier</a>
+               <a href="#">modifier</a>
             </figcaption>
          </figure>
          <article>
@@ -102,7 +102,21 @@
             <button id="addPhotoFormButton" class="add-photo-button">Ajouter une photo</button>
             <button id="deleteGalleryButton" class="delete-gallery-button">Supprimer la galerie</button>
          </div>
-         <form id="photoForm" class="photo-form" style="display: none">
+      </div>
+      <div class="add-photo-section">
+         <button class="back-button"><i class="fas fa-arrow-left"></i></button>
+         <form id="addPhotoForm">
+            <label for="imageURL">URL de l'image :</label>
+            <input type="text" id="imageURL" name="imageURL" required>
+
+            <label for="imageTitle">Titre de l'image :</label>
+            <input type="text" id="imageTitle" name="imageTitle" required>
+
+            <label for="imageCategory">Catégorie :</label>
+            <select id="imageCategory" name="imageCategory">
+            </select>
+
+            <button type="submit">Ajouter</button>
          </form>
       </div>
    </div>

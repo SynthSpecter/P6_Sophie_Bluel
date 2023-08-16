@@ -292,7 +292,7 @@ footer nav ul {
 /* MODALE */
 
 .modal {
-  display: none;
+  display: block;
   position: fixed;
   z-index: 1;
   inset: 0;
@@ -303,11 +303,11 @@ footer nav ul {
 
 .modal-content {
   text-align: center;
-  border-radius: 15px;
   background-color: #fff;
   margin: 15% auto;
   padding: 60px;
   border: 1px solid #888;
+  border-radius: 15px;
   width: 50%;
   height: 50%;
   overflow-y: auto;
@@ -339,7 +339,7 @@ footer nav ul {
   color: #000;
 }
 
-/* Mini-galerie et boutons */
+/* MINI-GALERIE ET BOUTONS */
 
 .gallery-mini {
   display: flex;
@@ -395,6 +395,7 @@ footer nav ul {
 .buttonContainer {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 .add-photo-button {
@@ -410,7 +411,6 @@ footer nav ul {
   border: 1px solid #1d6154;
   border-radius: 20px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .delete-gallery-button {
@@ -418,14 +418,14 @@ footer nav ul {
   color: red; 
   font-family: 'Syne', sans-serif;
   font-weight: 100;
-  font-size: 1rem;
+  font-size: 0.75rem;
   width: auto;
   height: auto;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
 }
-/* formulaire d'ajout de photo */
+
+/* FORMULAIRE D'AJOUT DE PHOTO */
 
 #photoForm {
   display: none;
@@ -434,6 +434,38 @@ footer nav ul {
   inset: 0;
   background-color: rgba(0, 0, 0, 0.6);
 } 
+
+.add-photo-section {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: -60%;
+  width: 54.5%;
+  height: 54.5%;
+  margin: 15% auto;
+  padding: 60px;
+  border: 1px solid #888;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  overflow: auto;
+}
+
+.add-photo-section .slide-right {
+  right: 0;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #555;
+  cursor: pointer;
+}
 
 /* BARRE DE NAVIGATION */
 
@@ -444,8 +476,7 @@ footer nav ul {
   align-items: center;
   justify-content: center;
   height: 40px;
-  width: 1440px;
-  margin-left: -100px;
+  width: 100%;
   gap: 10px;
 }
 
@@ -542,7 +573,6 @@ footer nav ul {
   width: 150px;
   height: 40px;
 }
-
 
 /* MESSAGE D'ERREUR */
 
