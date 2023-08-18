@@ -26,7 +26,7 @@ function openModal() {
   galleryMini.style.display = 'flex';
   populateGalleryMini();
 }
-
+ 
 function closeModal() {
   modal.style.display = 'none';
   galleryMini.style.display = 'none';

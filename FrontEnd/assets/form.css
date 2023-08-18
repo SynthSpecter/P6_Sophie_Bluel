@@ -1,0 +1,42 @@
+/* FORMULAIRE D'AJOUT DE PHOTO */
+
+#photoForm {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+} 
+
+.add-photo-section {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: -60%;
+  width: 54.5%;
+  height: 54.5%;
+  margin: 15% auto;
+  padding: 60px;
+  border: 1px solid #888;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  overflow: auto;
+  transform: translateX(100%);
+}
+
+.slide-right {
+  transform: translateX(0);
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #555;
+  cursor: pointer;
+}

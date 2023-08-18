@@ -103,11 +103,11 @@
             <button id="deleteGalleryButton" class="delete-gallery-button">Supprimer la galerie</button>
          </div>
       </div>
-      <div class="add-photo-section">
+      <div method="post" enctype="multipart/form-data" class="add-photo-section">
          <button class="back-button"><i class="fas fa-arrow-left"></i></button>
          <form id="addPhotoForm">
             <label for="imageURL">URL de l'image :</label>
-            <input type="text" id="imageURL" name="imageURL" required>
+            <input type="file" id="imageURL" name="imageURL" required>
 
             <label for="imageTitle">Titre de l'image :</label>
             <input type="text" id="imageTitle" name="imageTitle" required>

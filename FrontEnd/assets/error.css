@@ -1,0 +1,7 @@
+/* MESSAGE D'ERREUR */
+
+.gallery span {
+  display: grid;
+  grid-row: 3;
+  grid-column: 2;
+}

@@ -1,0 +1,85 @@
+/* MINI-GALERIE ET BOUTONS */
+
+.gallery-mini {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.gallery-mini figure {
+  display: flex;
+  flex-direction: column;
+  width: calc(20% - 10px);
+  margin: 0;
+  padding: 0;
+}
+
+.gallery-mini img {
+  width: 100%;
+  height: auto;
+}
+
+.gallery-mini figcaption {
+  margin-top: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.gallery-item {
+  position: relative;
+}
+
+.photo-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.photo-buttons button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.photo-buttons button i {
+  font-size: 18px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.add-photo-button {
+  background-color: #1d6154;
+  color: white; 
+  font-family: 'Syne', sans-serif;
+  font-weight: 100;
+  font-size: 1rem;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  margin: 0 5rem 0 5rem;
+  border: 1px solid #1d6154;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.delete-gallery-button {
+  background-color: white;
+  color: red; 
+  font-family: 'Syne', sans-serif;
+  font-weight: 100;
+  font-size: 0.75rem;
+  width: auto;
+  height: auto;
+  border: none;
+  cursor: pointer;
+}

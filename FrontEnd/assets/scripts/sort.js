@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  fetchCategories();
+  fetchAndCreateCategories()
 
   getGalleryData(null);
   
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-async function createFilterButtons() {
+async function fetchAndCreateCategories() {
   try {
     const response = await fetch('http://localhost:5678/api/categories');
     if (!response.ok) {
@@ -33,6 +33,8 @@ async function createFilterButtons() {
       const button = createButton(category.name);
       galleryNav.appendChild(button);
     });
+
+    setActiveButton(document.querySelector('[data-filter="Tous"]'));
   } catch (error) {
     console.error(error.message);
   }
@@ -44,20 +46,6 @@ function createButton(text) {
   button.textContent = text;
   button.dataset.filter = text;
   return button;
-}
-
-async function fetchCategories() {
-  try {
-    const response = await fetch('http://localhost:5678/api/categories');
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des catégories');
-    }
-    const data = await response.json();
-    await createFilterButtons();
-    setActiveButton(document.querySelector('[data-filter="Tous"]'));
-  } catch (error) {
-    console.error(error.message);
-  }
 }
 
 async function getGalleryData(categoryFilter) {
