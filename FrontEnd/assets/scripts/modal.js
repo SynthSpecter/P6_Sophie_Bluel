@@ -212,7 +212,7 @@ populateImageCategories();
 async function addPhoto(event) {
   event.preventDefault();
 
-  const selectedImageURL = document.getElementById('imageURL').value;
+  const previewedImage = document.querySelector('preview-image');
   const imageTitle = document.getElementById('imageTitle').value;
   const imageCategory = document.getElementById('imageCategory').value;
 
@@ -224,7 +224,7 @@ async function addPhoto(event) {
         'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({
-        imageUrl: selectedImageURL ,
+        imageUrl: previewedImage ,
         title: imageTitle,
         category: imageCategory,
       }),
