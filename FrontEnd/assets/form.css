@@ -11,10 +11,11 @@
 .add-photo-section {
   display: block;
   position: absolute;
+  text-align: center;
   top: 0;
   right: -60%;
-  width: 54.5%;
-  height: 54.5%;
+  width: 50%;
+  height: 50%;
   margin: 15% auto;
   padding: 60px;
   border: 1px solid #888;
@@ -22,21 +23,107 @@
   background-color: #fff;
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  overflow: auto;
-  transform: translateX(100%);
+  overflow-y: auto;
+}
+
+.add-photo-section h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
 .slide-right {
-  transform: translateX(0);
+  right: 21%;
 }
 
 .back-button {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 10px;
+  left: 10px;
   background: none;
   border: none;
-  font-size: 24px;
-  color: #555;
+  font-size: 20px;
+  color: #333;
   cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.back-button:hover {
+  color: #000;
+}
+
+#addPhotoForm {
+  margin-top: 20px;
+  text-align: left;
+}
+
+#addPhotoForm label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#addPhotoForm input[type="file"],
+#addPhotoForm input[type="text"],
+#addPhotoForm select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#addPhotoForm input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+#addPhotoForm button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#addPhotoForm button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.custom-label {
+  text-align: center;
+}
+
+.uploadZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem;
+  margin: 5rem;
+  background-color: #F6F6F6;
+}
+
+.customZone {
+  padding: 5rem;
+  margin: 5rem;
+}
+
+.uploadZone img {
+  width: 200px;
+  height: 200px;
+}
+
+.preview-image {
+  width: 200px;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
 }

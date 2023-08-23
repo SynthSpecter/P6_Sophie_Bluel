@@ -103,22 +103,29 @@
             <button id="deleteGalleryButton" class="delete-gallery-button">Supprimer la galerie</button>
          </div>
       </div>
-      <div method="post" enctype="multipart/form-data" class="add-photo-section">
-         <button class="back-button"><i class="fas fa-arrow-left"></i></button>
-         <form id="addPhotoForm">
-            <label for="imageURL">URL de l'image :</label>
-            <input type="file" id="imageURL" name="imageURL" required>
-
-            <label for="imageTitle">Titre de l'image :</label>
+   </div>
+   <div class="add-photo-section">
+      <button class="back-button"><i class="fas fa-arrow-left"></i></button>
+      <form id="addPhotoForm" method="post" enctype="multipart/form-data">
+         <label for="imageURL" class="custom-label">Ajout photo</label>
+         <div class="uploadZone">
+            <img src="../FrontEnd/assets/icons/download.png" alt="image de téléchargement">
+            <input type="file" id="imageURL" name="imageURL" accept=".jpg, .png" style="display: none">
+            <button id="uploadModalButton">+ Ajouter une photo</button>
+            <span class="file-restrictions">jpg, png, : 4mo max</span>
+         </div>
+         <div class="customZone">
+            <label for="imageTitle">Titre</label>
             <input type="text" id="imageTitle" name="imageTitle" required>
 
-            <label for="imageCategory">Catégorie :</label>
+            <label for="imageCategory">Catégorie</label>
             <select id="imageCategory" name="imageCategory">
             </select>
 
-            <button type="submit">Ajouter</button>
-         </form>
-      </div>
+            <hr class="divider">
+            <button id="addFinalPhotoButton" type="submit">Ajouter</button>
+         </div>
+      </form>
    </div>
 
 </body>
