@@ -1,91 +1,8 @@
 const addPhotoButton = document.getElementById('addPhotoButton');
-const backButton = document.querySelector('.back-button');
-const closeButton = document.getElementById('closeModalButton');
-const modalContent = document.querySelector('.modal-content');
-const addPhotoSection = document.querySelector('.add-photo-section');
-const addPhotoForm = document.getElementById('addPhotoForm');
-const addPhotoFormButton = document.getElementById('addPhotoFormButton');
+addPhotoButton.addEventListener('click', openModal)
+
 const closeModalButton = document.getElementById('closeModalButton');
 const galleryMini = document.querySelector('.gallery-mini');
-const fileInput = document.getElementById('imageURL');
-const fileInputLabel = document.getElementById('file-input-label');
-const uploadModalButton = document.getElementById('uploadModalButton');
-const imageCategorySelect = document.getElementById('imageCategory');
-const addFinalPhoto = document.getElementById('addFinalPhotoButton');
-
-addPhotoButton.addEventListener('click', openModal)
-closeButton.addEventListener('click', closeModal);
-addPhotoFormButton.addEventListener('click', () => {
-  addPhotoSection.classList.add('slide-right');
-  // changer le display de none en block
-  backButton.style.display = 'block';
-});
-backButton.addEventListener('click', () => {
-  addPhotoSection.classList.remove('slide-right');
-  backButton.style.display = 'none';
-});
-uploadModalButton.addEventListener('click', () => {
-   fileInput.click();
-});
-addFinalPhoto.addEventListener('click', (event) => {
-  addPhoto(event);
-});
-fileInput.addEventListener('change', () => {
-  const file = fileInput.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      const previewImage = document.createElement('img');
-      previewImage.src = event.target.result;
-      previewImage.alt = 'Image sélectionnée';
-      previewImage.classList.add('preview-image');
-
-      const uploadZone = document.querySelector('.uploadZone');
-      uploadZone.innerHTML = '';
-      uploadZone.appendChild(previewImage);
-    }
-    reader.readAsDataURL(file);
-  } else {
-    const uploadZone = document.querySelector('.uploadZone');
-    uploadZone.innerHTML = `
-      <img src="../FrontEnd/assets/icons/download.png" alt="image de téléchargement">
-      <button id="uploadModalButton">+ Ajouter une photo</button>
-      <span class="file-restrictions">jpg, png, : 4mo max</span>
-    `;
-
-    fileInputLabel.textContent = 'Ajout photo';
-  }
-});
-addPhotoForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-  const selectedImageURL  = document.getElementById('imageURL').value;
-  const imageTitle = document.getElementById('imageTitle').value;
-  const imageCategory = document.getElementById('imageCategory').value;
-
-  try {
-    const response = await fetch('http://localhost:5678/api/works', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        imageUrl: selectedImageURL,
-        title: imageTitle,
-        category: imageCategory,
-      }),
-    });
-
-    if (response.ok) {
-    } else {
-      console.error('Erreur lors de l\'ajout de l\'image');
-    }
-  } catch (error) {
-    console.error(error.message);
-  }
-});
-
 function openModal() {
   modal.style.display = 'block';
   closeModalButton.style.display = 'block';
@@ -154,6 +71,85 @@ function createButtons(imageId) {
   return buttonsContainer;
 }
 
+const addPhotoFormButton = document.getElementById('addPhotoFormButton');
+const addPhotoSection = document.querySelector('.add-photo-section');
+addPhotoFormButton.addEventListener('click', () => {
+  addPhotoSection.classList.add('slide-right');
+  // changer le display de none en block
+  backButton.style.display = 'block';
+});
+
+const backButton = document.querySelector('.back-button');
+backButton.addEventListener('click', () => {
+  addPhotoSection.classList.remove('slide-right');
+  backButton.style.display = 'none';
+});
+
+const uploadModalButton = document.getElementById('uploadModalButton');
+uploadModalButton.addEventListener('click', () => {
+   fileInput.click();
+});
+
+const fileInput = document.getElementById('imageURL');
+const fileInputLabel = document.getElementById('file-input-label');
+fileInput.addEventListener('change', () => {
+  const file = fileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const previewImage = document.createElement('img');
+      previewImage.src = event.target.result;
+      previewImage.alt = 'Image sélectionnée';
+      previewImage.classList.add('preview-image');
+
+      const uploadZone = document.querySelector('.uploadZone');
+      uploadZone.innerHTML = '';
+      uploadZone.appendChild(previewImage);
+    }
+    reader.readAsDataURL(file);
+  } else {
+    const uploadZone = document.querySelector('.uploadZone');
+    uploadZone.innerHTML = `
+      <img src="../FrontEnd/assets/icons/download.png" alt="image de téléchargement">
+      <button id="uploadModalButton">+ Ajouter une photo</button>
+      <span class="file-restrictions">jpg, png, : 4mo max</span>
+    `;
+
+    fileInputLabel.textContent = 'Ajout photo';
+  }
+});
+
+const addPhotoForm = document.getElementById('addPhotoForm');
+addPhotoForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const selectedImageURL  = document.getElementById('imageURL').value;
+  const imageTitle = document.getElementById('imageTitle').value;
+  const imageCategory = document.getElementById('imageCategory').value;
+
+  try {
+    const response = await fetch('http://localhost:5678/api/works', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        imageUrl: selectedImageURL,
+        title: imageTitle,
+        category: imageCategory,
+      }),
+    });
+
+    if (response.ok) {
+    } else {
+      console.error('Erreur lors de l\'ajout de l\'image');
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 async function deleteImage(imageId) {
   try {
     const response = await fetch(`http://localhost:5678/api/works/${imageId}`, {
@@ -179,7 +175,6 @@ async function deleteImage(imageId) {
 const deleteGalleryButton = document.getElementById('deleteGalleryButton');
 deleteGalleryButton.addEventListener('click', deleteGallery);
 
-
 function MoveItems() {
   // Code pour déplacer des éléments de la galerie
 }
@@ -198,6 +193,7 @@ async function populateImageCategories() {
 
     categories.forEach(category => {
       const option = document.createElement('option');
+      const imageCategorySelect = document.getElementById('imageCategory');
       option.value = category.id;
       option.textContent = category.name;
       imageCategorySelect.appendChild(option);
@@ -209,10 +205,16 @@ async function populateImageCategories() {
 
 populateImageCategories();
 
+const addFinalPhoto = document.getElementById('addFinalPhotoButton');
+addFinalPhoto.addEventListener('click', (event) => {
+  addPhoto(event);
+});
+
 async function addPhoto(event) {
   event.preventDefault();
 
-  const previewedImage = document.querySelector('preview-image');
+  const previewedImage = document.querySelector('.preview-image');
+  const imageUrl = previewedImage.getAttribute('src');
   const imageTitle = document.getElementById('imageTitle').value;
   const imageCategory = document.getElementById('imageCategory').value;
 
@@ -224,9 +226,9 @@ async function addPhoto(event) {
         'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({
-        imageUrl: previewedImage ,
+        imageUrl: imageUrl,
         title: imageTitle,
-        category: imageCategory,
+        category: parseInt(imageCategory),
       }),
     });
 
@@ -256,6 +258,9 @@ async function addPhoto(event) {
 //   closeModal();
 //   resetUploadZone();
 // });
+
+const closeButton = document.getElementById('closeModalButton');
+closeButton.addEventListener('click', closeModal);
 
 function closeModal() {
   modal.style.display = 'none';
