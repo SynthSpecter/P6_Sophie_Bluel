@@ -214,23 +214,22 @@ async function addPhoto(event) {
   event.preventDefault();
 
   const previewedImage = document.querySelector('.preview-image');
-  const imageUrl = previewedImage.getAttribute('src');
   const imageTitle = document.getElementById('imageTitle').value;
   const imageCategory = document.getElementById('imageCategory').value;
+
+  const formData = new FormData();
+  formData.append('image', previewedImage);
+  formData.append('title', imageTitle);
+  formData.append('category', imageCategory);
 
   try {
     const response = await fetch('http://localhost:5678/api/works', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        imageUrl: imageUrl,
-        title: imageTitle,
-        category: parseInt(imageCategory),
-      }),
-    });
+      body: formData,
+      });
 
     if (response.ok) {
       closeModal();
