@@ -1,106 +1,79 @@
 document.addEventListener('DOMContentLoaded', () => {
-  fetchAndCreateCategories()
+  let galleryNav = document.querySelector('.gallery-nav');
+  let galleryContainer = document.querySelector('.gallery');
 
+  let fetchAndCreateCategories = async () => {
+    try {
+      let response = await fetch('http://localhost:5678/api/categories');
+      if (!response.ok) throw new Error('Erreur lors de la récupération des catégories');
+      let categories = await response.json();
+
+      galleryNav.innerHTML = '';
+      galleryNav.appendChild(createButton('Tous'));
+
+      categories.forEach(category => {
+        galleryNav.appendChild(createButton(category.name));
+      });
+
+      setActiveButton(document.querySelector('[data-filter="Tous"]'));
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  let createButton = text => {
+    let button = document.createElement('button');
+    button.classList.add('gallery-nav-item');
+    button.textContent = text;
+    button.dataset.filter = text;
+    return button;
+  };
+
+  let getGalleryData = async categoryFilter => {
+    try {
+      let data = [];
+      let cachedData = localStorage.getItem('galleryData');
+
+      if (cachedData) {
+        data = JSON.parse(cachedData);
+      } else {
+        let url = 'http://localhost:5678/api/works';
+        let response = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } });
+
+        if (!response.ok) throw new Error('Erreur lors de la récupération des éléments de la galerie');
+        data = await response.json();
+        localStorage.setItem('galleryData', JSON.stringify(data));
+      }
+
+      let filteredData = categoryFilter ? data.filter(item => item.category.name === categoryFilter) : data;
+      displayGallery(filteredData);
+    } catch (error) {
+      galleryContainer.innerHTML = '<span class="error-message">Une erreur est survenue lors de la récupération des éléments de la galerie</span>';
+    }
+  };
+
+  let displayGallery = data => {
+    galleryContainer.innerHTML = data.map(item => `
+      <figure>
+        <img src="${item.imageUrl}" alt="${item.title}">
+        <figcaption>${item.title}</figcaption>
+      </figure>
+    `).join('');
+  };
+
+  let setActiveButton = button => {
+    let sortButtons = document.querySelectorAll('.gallery-nav-item');
+    sortButtons.forEach(btn => btn.classList.toggle('active', btn === button));
+  };
+
+  fetchAndCreateCategories();
   getGalleryData(null);
-  
-  const galleryNav = document.querySelector('.gallery-nav');
 
-  galleryNav.addEventListener('click', (event) => {
+  galleryNav.addEventListener('click', event => {
     if (event.target.classList.contains('gallery-nav-item')) {
-    const categoryFilter = event.target.dataset.filter;
-    setActiveButton(event.target);
-    getGalleryData(categoryFilter === 'Tous' ? null : categoryFilter);
+      let categoryFilter = event.target.dataset.filter;
+      setActiveButton(event.target);
+      getGalleryData(categoryFilter === 'Tous' ? null : categoryFilter);
     }
   });
-
 });
-
-async function fetchAndCreateCategories() {
-  try {
-    const response = await fetch('http://localhost:5678/api/categories');
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des catégories');
-    }
-    const categories = await response.json();
-
-    const galleryNav = document.querySelector('.gallery-nav');
-    galleryNav.innerHTML = '';
-
-    const allButton = createButton('Tous');
-    galleryNav.appendChild(allButton);
-
-    categories.forEach(category => {
-      const button = createButton(category.name);
-      galleryNav.appendChild(button);
-    });
-
-    setActiveButton(document.querySelector('[data-filter="Tous"]'));
-  } catch (error) {
-    console.error(error.message);
-  }
-}
-
-function createButton(text) {
-  const button = document.createElement('button');
-  button.classList.add('gallery-nav-item');
-  button.textContent = text;
-  button.dataset.filter = text;
-  return button;
-}
-
-async function getGalleryData(categoryFilter) {
-  try {
-    const url = 'http://localhost:5678/api/works';
-
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des éléments de la galerie');
-    }
-
-    const data = await response.json();
-
-    let filteredData = data;
-    if (categoryFilter) {
-      filteredData = data.filter(item => item.category.name === categoryFilter);
-    }
-
-    displayGallery(filteredData);
-  } catch (error) {
-    const galleryContainer = document.querySelector('.gallery');
-    galleryContainer.innerHTML = '<span class="error-message">Une erreur est survenue lors de la récupération des éléments de la galerie</span>';
-  }
-}
-
-
-function displayGallery(data) {
-  const galleryContainer = document.querySelector('.gallery');
-  galleryContainer.innerHTML = '';
-
-  data.forEach(item => {
-    const figure = document.createElement('figure');
-    const image = document.createElement('img');
-    const figcaption = document.createElement('figcaption');
-
-    image.src = item.imageUrl;
-    image.alt = item.title;
-    figcaption.textContent = item.title;
-
-    figure.appendChild(image);
-    figure.appendChild(figcaption);
-
-    galleryContainer.appendChild(figure);
-  });
-}
-
-function setActiveButton(button) {
-  const sortButtons = document.querySelectorAll('.gallery-nav-item');
-  sortButtons.forEach(btn => btn.classList.remove('active'));
-  button.classList.add('active');
-}

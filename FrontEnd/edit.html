@@ -109,9 +109,12 @@
       <form id="addPhotoForm" method="post" enctype="multipart/form-data">
          <label for="imageURL" class="custom-label">Ajout photo</label>
          <div class="uploadZone">
-            <img src="../FrontEnd/assets/icons/download.png" alt="image de téléchargement">
+            <img src="../FrontEnd/assets/icons/download.png" alt="image de téléchargement" class="alt">
             <input type="file" id="imageURL" name="imageURL" accept=".jpg, .png" style="display: none">
-            <button id="uploadModalButton">+ Ajouter une photo</button>
+            <label for="imageURL" id="imageUploadLabel">
+               <img id="previewImage" src="" alt="Aperçu de l'image" style="max-width: 100%; max-height: 300px;">
+            </label>
+            <button id="uploadModalButton">+ Ajouter photo</button>
             <span class="file-restrictions">jpg, png, : 4mo max</span>
          </div>
          <div class="customZone">

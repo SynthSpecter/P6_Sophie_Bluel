@@ -11,7 +11,7 @@ function logout() {
 document.getElementById("logoutBtn").addEventListener("click", (event) => {
     event.preventDefault();
 
-    const isLoggedOut = logout();
+    let isLoggedOut = logout();
 
     if (isLoggedOut) {
         window.location = "index.html";

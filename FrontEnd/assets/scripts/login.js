@@ -1,7 +1,7 @@
-const loginForm = document.getElementById('loginForm');
+let loginForm = document.getElementById('loginForm');
 
-const token = sessionStorage.getItem("token");
-const currentPage = window.location.pathname.split('/').pop();
+let token = sessionStorage.getItem("token");
+let currentPage = window.location.pathname.split('/').pop();
 
 if (token && currentPage !== 'edit.html') {
     alert("Vous êtes déjà connecté !");
@@ -9,11 +9,11 @@ if (token && currentPage !== 'edit.html') {
 }
 
 async function login() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
 
     try {
-        const response = await fetch("http://localhost:5678/api/users/login", {
+        let response = await fetch("http://localhost:5678/api/users/login", {
             method: 'POST',
             headers: {
                 "Accept": "application/json",
@@ -23,11 +23,11 @@ async function login() {
         });
 
         if (response.ok) {
-            const data = await response.json();
+            let data = await response.json();
             sessionStorage.setItem("token", data.token);
             return true;
         } else {
-            const error = document.getElementById('error');
+            let error = document.getElementById('error');
             error.textContent = "Nom d'utilisateur ou mot de passe incorrect";
             return false;
         }
@@ -40,7 +40,7 @@ async function login() {
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
         
-    const isAuthenticated = await login();
+    let isAuthenticated = await login();
     
     if (isAuthenticated) {
         window.location = "./edit.html";
