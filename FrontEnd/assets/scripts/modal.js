@@ -105,18 +105,22 @@ function openModal() {
 
 function openAddPhotoSection() {
   let addPhotoSection = document.querySelector('.add-photo-section');
-  addPhotoSection.classList.add('slide-right');
+  addPhotoSection.style.display = 'block'
   let backButton = document.querySelector('.back-button');
   backButton.addEventListener('click', closeAddPhotoSection);
   backButton.style.display = 'block';
+  let modal = document.getElementById('modal')
+  modal.style.display ='none';
 }
 
 function closeAddPhotoSection() {
   let addPhotoSection = document.querySelector('.add-photo-section');
-  addPhotoSection.classList.remove('slide-right');
+  addPhotoSection.style.display = 'none'
   let backButton = document.querySelector('.back-button');
   backButton.addEventListener('click', closeAddPhotoSection);
   backButton.style.display = 'none';
+  let modal = document.getElementById('modal')
+  modal.style.display ='block';
 }
 
 function addPhoto(event) {
@@ -124,6 +128,8 @@ function addPhoto(event) {
 
   let token = sessionStorage.getItem("token");
   let fileInput = document.getElementById('imageURL');
+  let imageTitleInput = document.getElementById('imageTitle');
+  let imageCategorySelect = document.getElementById('imageCategory');
   let formData = new FormData();
   formData.append('image', fileInput.files[0]);
   formData.append('title', imageTitleInput.value);
@@ -159,11 +165,7 @@ function addToGalleryMini(title, category, imageUrl) {
 
 function createGalleryItem(item) {
   const figure = document.createElement('figure');
-  figure.classList.add('gallery-item');
   figure.appendChild(createImage(item.imageUrl, item.title));
-  figure.appendChild(createButtonsContainer(item.id));
-  figure.addEventListener('mouseenter', () => toggleButtonsContainer(figure, true));
-  figure.addEventListener('mouseleave', () => toggleButtonsContainer(figure, false));
   return figure;
 }
 
