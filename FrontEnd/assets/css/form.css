@@ -1,0 +1,154 @@
+/* FORMULAIRE D'AJOUT DE PHOTO */
+
+#photoForm {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+} 
+
+.add-photo-section {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.add-photo-section h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.photosection-content {
+  display: block;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  right: 0;
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 60px;
+  border: 1px solid #888;
+  border-radius: 15px;
+  width: 50%;
+  height: 50%;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  color: #000;
+}
+
+#addPhotoForm {
+  margin-top: 20px;
+  text-align: left;
+}
+
+#addPhotoForm label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#addPhotoForm input[type="file"],
+#addPhotoForm input[type="text"],
+#addPhotoForm select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  border: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+#addPhotoForm input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+#addPhotoForm button[type="submit"] {
+  background-color: #a4bac6;
+  color: white; 
+  font-family: 'Syne', sans-serif;
+  font-weight: 100;
+  font-size: 1rem;
+  width: 75%;
+  height: auto;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  margin: 1rem 5rem 1rem 5rem;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+}
+
+
+.custom-label {
+  text-align: center;
+}
+
+.uploadZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1rem 1rem 1rem;
+  margin: 1rem 5rem 1rem 5rem;
+  background-color: #e8f1f6;
+}
+
+#uploadModalButton {
+  background-color: lightgray;
+  color: #a4bac6 ; 
+  font-family: 'Syne', sans-serif;
+  font-weight: 100;
+  font-size: 1rem;
+  width: 50%;
+  align-self: center;
+  height: auto;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  margin: 1rem 5rem 1rem 5rem;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+}
+
+.customZone {
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.uploadZone img {
+  width: 200px;
+  height: 200px;
+}
+
+.preview-image {
+  width: 200px;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+}

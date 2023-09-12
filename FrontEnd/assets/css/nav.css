@@ -1,0 +1,31 @@
+/* BARRE DE NAVIGATION */
+
+.edit-mode-bar {
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 100%;
+  gap: 10px;
+}
+
+.edit-mode-bar i {
+  margin-right: 10px;
+}
+
+.publish-button {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.publish-button:hover {
+  background-color: #555;
+  color: #fff;
+}
