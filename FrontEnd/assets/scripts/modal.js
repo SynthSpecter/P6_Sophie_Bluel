@@ -85,6 +85,7 @@ let createButtonsContainer = imageId => {
 
 let createButton = (className, innerHTML, clickHandler) => {
   let button = document.createElement('button');
+  button.type = 'button';
   button.classList.add(className);
   button.innerHTML = innerHTML;
   button.addEventListener('click', clickHandler);
@@ -123,61 +124,63 @@ function closeAddPhotoSection() {
   modal.style.display ='block';
 }
 
-function addPhoto(event) {
-  event.preventDefault();
+async function addPhoto(inputFileBtn, inputElement, selectCategory) {
+
+  let formData = new FormData();
+
+  const newWorkImg = inputFileBtn.files[0];
+  const newWorkTitle = inputElement.value;
+  const newWorkCategory = selectCategory.value;
 
   let token = sessionStorage.getItem("token");
-  let fileInput = document.getElementById('imageURL');
-  let imageTitleInput = document.getElementById('imageTitle');
-  let imageCategorySelect = document.getElementById('imageCategory');
-  let formData = new FormData();
-  formData.append('image', fileInput.files[0]);
-  formData.append('title', imageTitleInput.value);
-  formData.append('category', imageCategorySelect.value);
 
-    try {
-    let response = fetch('http://localhost:5678/api/works', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json', 
-      },
-      body: formData,
-    });
+  formData.append('image', newWorkImg);
+  formData.append('title', newWorkTitle);
+  formData.append('category', newWorkCategory);
 
-    if (response.ok) {
-      closeModal();
-      fetchAndPopulateGalleryMini();
-      addToMainGallery(imageTitleInput.value, imageCategorySelect.value, fileInput.files[0]);
-    } else {
-      console.error('Erreur lors de l\'ajout de l\'image');
-    }
-  } catch (error) {
-    console.error(error.message);
+  let response = await fetch('http://localhost:5678/api/works', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json', 
+    },
+    body: formData,
+  });
+
+  if (response.ok) {
+    closeModal();
+    fetchAndPopulateGalleryMini();
+    addToMainGallery(newWorkTitle, newWorkCategory, newWorkImg);
+  } else {
+    console.error('Erreur lors de l\'ajout de l\'image');
   }
 }
 
 function addToGalleryMini(title, category, imageUrl) {
-  const galleryMini = document.querySelector('.gallery-mini');
-  const figureMini = createGalleryItemMini({ imageUrl, title, category });
+  let galleryMini = document.querySelector('.gallery-mini');
+  let figureMini = createGalleryItemMini({ imageUrl, title, category });
   galleryMini.appendChild(figureMini);
 }
 
 function createGalleryItem(item) {
-  const figure = document.createElement('figure');
+  let figure = document.createElement('figure');
   figure.appendChild(createImage(item.imageUrl, item.title));
   return figure;
 }
 
-function addToMainGallery(title, category, file) {
+function addToMainGallery() {
   let gallery = document.querySelector('.gallery');
-  let figure = createGalleryItem({ imageUrl: URL.createObjectURL(file), title, category });
+  let figure = createGalleryItem({ imageUrl: URL.createObjectURL(newWorkImg), title: newWorkTitle, category: newWorkCategory });
   gallery.appendChild(figure);
 }
 
 function closeModal() {
   modal.style.display = 'none';
   galleryMini.style.display = 'none';
+}
+
+async function moveImage () {
+  // futur code pour déplacer une image dans la modale
 }
 
 async function deleteImage(imageId) {
